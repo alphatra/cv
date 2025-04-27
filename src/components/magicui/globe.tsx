@@ -4,6 +4,21 @@ import { cn } from "@/lib/utils";
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 
+// Define specific types for Cobe state and instance
+type CobeState = {
+  phi: number;
+  theta: number;
+  width?: number; // Add other known properties if available
+  height?: number;
+  [key: string]: any; // Allow other unknown properties if necessary
+};
+
+type CobeInstance = {
+  destroy: () => void;
+  resize: () => void;
+  // Add other known methods if available
+};
+
 // Define a type for the cobe configuration
 type CobeConfig = {
   width: number;
@@ -22,7 +37,7 @@ type CobeConfig = {
   scale: number;
   offset: [number, number];
   devicePixelRatio: number; // Make devicePixelRatio non-optional
-  onRender: (state: Record<string, any>) => void; // Make onRender non-optional
+  onRender: (state: Record<string, any>) => void; // Revert to Record<string, any> for compatibility
 };
 
 // NOTE: This is a simplified version for demonstration.
@@ -56,7 +71,7 @@ export function Globe({
   // Explicitly type the globe instance ref if possible, otherwise use 'any'
   // Assuming 'createGlobe' returns a specific type 'CobeInstance'
   // Replace 'any' with 'CobeInstance | null' if you have the type
-  const globeRef = useRef<any>(null); // To store the globe instance
+  const globeRef = useRef<CobeInstance | null>(null); // Use specific CobeInstance type
   const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
   // Simulate r based on movement. Use useRef to ensure it persists across renders.
@@ -162,7 +177,9 @@ export function Globe({
         onRender: renderFunction,
       };
 
-      globeRef.current = createGlobe(currentCanvas, globeConfig);
+      // Explicitly cast the result of createGlobe if necessary,
+      // though ideally the library provides its own types.
+      globeRef.current = createGlobe(currentCanvas, globeConfig) as CobeInstance;
     }, 10);
 
     return () => {
