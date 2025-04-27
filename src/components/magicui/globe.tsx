@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils"; // Temporarily comment out problematic import
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 
@@ -200,10 +200,7 @@ export function Globe({
   }, [config, r]); // Removed updateMovement dependency for now, consider useCallback if needed
 
   return (
-    <div className={cn(
-      "aspect-square w-full",
-      className
-    )}>
+    <div className={`aspect-square w-full ${className || ''}`}>
       <canvas
         ref={canvasRef}
         style={{
