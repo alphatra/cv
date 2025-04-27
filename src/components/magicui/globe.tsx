@@ -4,6 +4,27 @@ import { cn } from "@/lib/utils";
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 
+// Define a type for the cobe configuration
+type CobeConfig = {
+  width: number;
+  height: number;
+  phi: number;
+  theta: number;
+  mapSamples: number;
+  mapBrightness: number;
+  baseColor: [number, number, number];
+  markerColor: [number, number, number];
+  glowColor: [number, number, number];
+  markers: { location: [number, number]; size: number }[]; // Example marker type
+  diffuse: number;
+  dark: number;
+  opacity: number;
+  scale: number;
+  offset: [number, number];
+  devicePixelRatio: number; // Make devicePixelRatio non-optional
+  onRender: (state: Record<string, any>) => void; // Make onRender non-optional
+};
+
 // NOTE: This is a simplified version for demonstration.
 // For the full features and options, refer to the magicui documentation.
 
@@ -16,27 +37,31 @@ export function Globe({
     theta: 0.3,
     mapSamples: 16000,
     mapBrightness: 1.2,
-    baseColor: [1, 1, 1] as [number, number, number],
-    markerColor: [251 / 255, 100 / 255, 21 / 255] as [number, number, number],
-    glowColor: [1.2, 1.2, 1.2] as [number, number, number],
+    baseColor: [1, 1, 1],
+    markerColor: [251 / 255, 100 / 255, 21 / 255],
+    glowColor: [1.2, 1.2, 1.2],
     markers: [],
     diffuse: 0.4,
     dark: 1,
     opacity: 1.0,
     scale: 1.0,
     offset: [0, 0],
-    onRender: (state: Record<string, any>) => {}
+    onRender: () => {} // Default empty function
   },
 }: {
   className?: string;
-  config?: any; // Using any for simplicity, refer to cobe types for specifics
+  config?: Partial<CobeConfig>; // Use partial as not all props might be provided
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // Explicitly type the globe instance ref if possible, otherwise use 'any'
+  // Assuming 'createGlobe' returns a specific type 'CobeInstance'
+  // Replace 'any' with 'CobeInstance | null' if you have the type
   const globeRef = useRef<any>(null); // To store the globe instance
   const pointerInteracting = useRef<number | null>(null);
   const pointerInteractionMovement = useRef(0);
-  const r = { value: 0, get: () => 0 }; // Mock 'r' object
-  const api = { start: (_config: any) => {} }; // Mock 'api' object, accepting an argument
+  // Simulate r based on movement. Use useRef to ensure it persists across renders.
+  const r = useRef({ get: () => pointerInteractionMovement.current / 200 }).current;
+  // const api = useRef({ start: () => { /* Update logic if needed */ } }).current; // Removed unused api mock
 
   const updatePointerInteraction = (value: number | null) => {
     pointerInteracting.current = value;
@@ -49,13 +74,12 @@ export function Globe({
     if (pointerInteracting.current !== null) {
       const delta = clientX - pointerInteracting.current;
       pointerInteractionMovement.current = delta;
-      api.start({ r: delta / 200 }); // Mock call
     }
   };
 
   const onResize = () => {
     if (canvasRef.current && globeRef.current) {
-      const currentWidth = canvasRef.current.offsetWidth;
+      // const currentWidth = canvasRef.current.offsetWidth; // Unused variable removed
       // Update the config object directly if needed, but cobe handles resize internally
       if (globeRef.current) {
         globeRef.current.resize();
@@ -67,8 +91,9 @@ export function Globe({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    let currentPhi = config.phi;
-    let currentTheta = config.theta;
+    // Use provided config values or defaults
+    let currentPhi = config?.phi ?? 0;
+    const currentTheta = config?.theta ?? 0.3; // Use const as it's not reassigned
 
     const onMouseMove = (e: MouseEvent) => updateMovement(e.clientX);
     const onTouchMove = (e: TouchEvent) => e.touches[0] && updateMovement(e.touches[0].clientX);
@@ -100,35 +125,45 @@ export function Globe({
       const currentCanvas = canvasRef.current;
       if (!currentCanvas || currentCanvas.offsetWidth === 0) return;
 
-      const minimalConfig = {
-        devicePixelRatio: 2,
+      // Define the render function separately
+      const renderFunction = (state: Record<string, any>) => {
+        // Call provided onRender first if it exists
+        config?.onRender?.(state);
+        // Default render logic
+        if (!pointerInteracting.current) {
+          currentPhi += 0.005;
+        }
+        state.phi = currentPhi + r.get();
+        state.theta = currentTheta;
+      };
+
+      const globeConfig: CobeConfig = {
+        // Base config properties from props or defaults
+        ...(config ?? {}),
+        // Required/overridden properties
+        devicePixelRatio: config?.devicePixelRatio ?? 2, // Ensure default value
         width: currentCanvas.offsetWidth * 2,
         height: currentCanvas.offsetHeight * 2,
         phi: currentPhi,
         theta: currentTheta,
-        dark: 1,
-        diffuse: 1.2,
-        mapSamples: 16000,
-        mapBrightness: 6,
-        baseColor: [0.3, 0.3, 0.3] as [number, number, number],
-        markerColor: [0.1, 0.8, 1] as [number, number, number],
-        glowColor: [1, 1, 1] as [number, number, number],
-        markers: [], // Start with no markers
-        onRender: (state: Record<string, any>) => {
-          if (!pointerInteracting.current) {
-            currentPhi += 0.005;
-            state.phi = currentPhi + r.get();
-          } else {
-            state.phi = currentPhi + pointerInteractionMovement.current / 200;
-          }
-          state.theta = currentTheta;
-          // Ensure width/height are updated in state if needed, though resize handles canvas
-          state.width = currentCanvas.offsetWidth * 2;
-          state.height = currentCanvas.offsetHeight * 2;
-        }
+        // Ensure required props have defaults if not in config
+        dark: config?.dark ?? 1,
+        diffuse: config?.diffuse ?? 1.2,
+        mapSamples: config?.mapSamples ?? 16000,
+        mapBrightness: config?.mapBrightness ?? 6,
+        baseColor: config?.baseColor ?? [0.3, 0.3, 0.3],
+        markerColor: config?.markerColor ?? [0.1, 0.8, 1],
+        glowColor: config?.glowColor ?? [1, 1, 1],
+        markers: config?.markers ?? [],
+        opacity: config?.opacity ?? 1.0,
+        scale: config?.scale ?? 1.0,
+        offset: config?.offset ?? [0, 0],
+        // Assign the defined render function
+        onRender: renderFunction,
       };
-      globeRef.current = createGlobe(currentCanvas, minimalConfig);
-    }, 10); // Small delay might help
+
+      globeRef.current = createGlobe(currentCanvas, globeConfig);
+    }, 10);
 
     return () => {
       clearTimeout(timeoutId);
@@ -141,7 +176,7 @@ export function Globe({
       canvas.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("touchmove", onTouchMove);
     };
-  }, []); // Rerun effect only on mount/unmount
+  }, [config, r]); // Removed updateMovement dependency for now, consider useCallback if needed
 
   return (
     <div className={cn(

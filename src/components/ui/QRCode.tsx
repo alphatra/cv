@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
+import Image from 'next/image';
 
 interface QRCodeGeneratorProps {
   url: string;
@@ -56,12 +57,13 @@ export default function QRCodeGenerator({
   }
 
   return (
-    <img
+    <Image
       src={qrCodeDataUrl}
       width={size}
       height={size}
       alt="QR Code"
       className={`rounded ${className}`}
+      unoptimized={true}
     />
   );
 } 
