@@ -41,8 +41,23 @@ interface ContentData {
 
 // Helper function to read and parse a markdown file
 const getContent = (filename: string): ContentData => {
-  const filePath = path.join(process.cwd(), "src", "content", filename);
-  const fileContents = fs.readFileSync(filePath, "utf8");
+  let filePath;
+  let fileContents;
+  
+  // Try to read from src/content first (works in dev)
+  try {
+    filePath = path.join(process.cwd(), "src", "content", filename);
+    fileContents = fs.readFileSync(filePath, "utf8");
+  } catch (error) {
+    // If that fails, try public/content (works in production)
+    try {
+      filePath = path.join(process.cwd(), "public", "content", filename);
+      fileContents = fs.readFileSync(filePath, "utf8");
+    } catch (secondError) {
+      throw new Error(`Could not find ${filename} in either src/content or public/content directories`);
+    }
+  }
+  
   const { data, content } = matter(fileContents);
   // Combine front matter data and markdown content (if any)
   return { ...data, markdownContent: content } as ContentData;
