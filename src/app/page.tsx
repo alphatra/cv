@@ -198,8 +198,9 @@ export default function Cv() {
             {/* Education */}
             <div>
               <h3 className="text-xl font-normal text-black dark:text-white mb-4">{educationData.title}</h3> {/* font-normal */}
-              {educationItems.map((item, _index) => (
-                <div key={_index} className="mb-4 last:mb-0">
+              {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+              {educationItems.map((item, index) => (
+                <div key={index} className="mb-4 last:mb-0">
                   <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                     <p className="text-lg font-semibold mb-1"> 
                       {item.degree}
@@ -232,7 +233,8 @@ export default function Cv() {
             <div className="bg-purple-50 text-black dark:text-black dark:bg-purple-300 border border-purple-200 dark:border-purple-300 p-4 rounded-lg">
               <h3 className="text-xl font-normal mb-3">{softSkillsData.title}</h3> {/* Color inherited */}
               <div className="flex flex-wrap gap-2">
-                {softSkills.map((skill, _index) => (
+                {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+                {softSkills.map((skill, index) => (
                   <CustomBadge key={skill} className="uppercase border-transparent bg-purple-100 text-purple-900 dark:bg-gray-950 dark:text-gray-100">
                     {skill}
                   </CustomBadge>
@@ -267,8 +269,9 @@ export default function Cv() {
           {/* Work experience */}
           <div className="col-span-2">
             <h3 className="text-xl font-normal text-white mb-4">{experienceData.title}</h3> {/* font-normal */}
-            {experienceItems.map(({ role, company, period, desc, type }, _index) => (
-              <div key={`${role}-${company}-${_index}`} className="mb-4 last:mb-0">
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+            {experienceItems.map(({ role, company, period, desc, type }, index) => (
+              <div key={`${role}-${company}-${index}`} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">
                     {role}
@@ -305,7 +308,8 @@ export default function Cv() {
           {/* Projects */}
           <div>
             <h3 className="text-xl font-normal mb-4">{projectsData.title}</h3> {/* font-normal */}
-            {projects.map(({ title, stage, tags, link, desc }, _index) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+            {projects.map(({ title, stage, tags, link, desc }, index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">
@@ -314,7 +318,8 @@ export default function Cv() {
                   </p>
                   {tags && tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {tags.map((t, _tagIndex) => (
+                      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+                      {tags.map((t, tagIndex) => (
                         <CustomBadge key={t} className="uppercase text-[10px]">{t}</CustomBadge>
                       ))}
                     </div>
@@ -339,7 +344,8 @@ export default function Cv() {
           {/* Certificates */}
           <div>
             <h3 className="text-xl font-normal mb-4">{certificatesData.title}</h3> {/* font-normal */}
-            {certificates.map(({ title, issuer, date }, _index) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+            {certificates.map(({ title, issuer, date }, index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-purple-100 border border-purple-200 text-black p-4 rounded-lg">
                   <p className="font-semibold">
@@ -360,7 +366,8 @@ export default function Cv() {
           {/* Interests */}
           <div>
             <h3 className="text-xl font-normal text-white mb-4">{interestsData.title}</h3> {/* White text, font-normal */}
-            {interests.map(({ title, subtitle, text }, _index) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+            {interests.map(({ title, subtitle, text }, index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">{title}</p>
@@ -380,7 +387,8 @@ export default function Cv() {
                     {activitiesData.intro && <p className="text-sm text-gray-300">{activitiesData.intro}</p>}
                </div>
              </div>
-            {activities.map(({ title, text }, _index) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+            {activities.map(({ title, text }, index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold mb-2">{title}</p>
