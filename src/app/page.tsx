@@ -1,13 +1,9 @@
-import AnimatedHeading from "@/components/ui/AnimatedHeading";
-import { AnimatedCard } from "@/components/ui/animated-card";
-import { AnimatedBadge } from "@/components/ui/animated-badge";
-import QRCodeGenerator from "@/components/ui/QRCode";
 import { Github } from 'lucide-react';
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 // import GlobeCard from '@/components/GlobeCard'; // Temporarily comment out GlobeCard import
-import ContactBadges from '@/components/ContactBadges';
+// import ContactBadges from '@/components/ContactBadges';
 import Image from 'next/image';
 
 // Define a basic type for the content data
@@ -164,11 +160,7 @@ export default function Cv() {
 
               {/* Bottom-Left Cell */}
               <div className="col-span-3 row-span-1 bg-purple-100 text-black dark:bg-purple-300 dark:text-purple-800 border-2 border-purple-100 dark:border-purple-300 rounded-lg flex items-center justify-center"> {/* Adjusted light bg/text/border */}
-                <QRCodeGenerator
-                  url={contact.github_link || "https://github.com"} // Use actual link or fallback
-                  bgColor="#DBB1FF" // Match bg-purple-100 (approx)
-                  fgColor="#000000" // Black QR code pattern
-                />
+                <div className="w-full h-full bg-gray-500 animate-pulse"></div> {/* Placeholder */}
               </div>
 
               {/* Bottom-Right Cell */}
@@ -183,39 +175,29 @@ export default function Cv() {
         </div>
 
         {/* Name */}
-        <AnimatedHeading className="mt-8 text-5xl font-bold tracking-wide">
-          GRACJAN ZIEMIAŃSKI
-        </AnimatedHeading>
+        <h1 className="mt-8 text-5xl font-bold tracking-wide">GRACJAN ZIEMIAŃSKI</h1> {/* Placeholder */}
 
         {/* Contact badges - Use the client component */}
-        <ContactBadges contact={contact} />
+        <div>Contact Placeholder</div> {/* Placeholder */}
 
         {/* Profile + Education + Soft skills + Programming skills */}
         <div className="grid grid-cols-2 gap-6 mt-8">
           {/* Column 1: Profile + Education */}
           <div className="flex flex-col gap-6">
             {/* Profile */}
-            <AnimatedCard
-              className="bg-blue-600 text-white dark:bg-[#570EFF] shadow-inner border-purple-500/50"
-              contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-              delay={0.1}
-            >
+            <div className="bg-blue-600 text-white dark:bg-[#570EFF] shadow-inner border-purple-500/50 p-4 rounded-lg">
               <h3 className="text-xl font-normal mb-3">{profile.title}</h3> {/* Color inherited */}
               <p className="text-sm text-gray-200 dark:text-gray-200 leading-relaxed whitespace-pre-line">
                 {profile.text}
               </p>
-            </AnimatedCard>
+            </div>
 
             {/* Education */}
             <div>
               <h3 className="text-xl font-normal text-black dark:text-white mb-4">{educationData.title}</h3> {/* font-normal */}
               {educationItems.map((item, index) => (
                 <div key={index} className="mb-4 last:mb-0">
-                  <AnimatedCard
-                    className="bg-white border-gray-300 text-black"
-                    delay={0.1 + (index * 0.1)}
-                    contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-                  >
+                  <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                     <p className="text-lg font-semibold mb-1"> 
                       {item.degree}
                     </p>
@@ -235,7 +217,7 @@ export default function Cv() {
                         ))}
                        </div>
                     )}
-                  </AnimatedCard>
+                  </div>
                 </div>
               ))}
             </div>
@@ -244,32 +226,19 @@ export default function Cv() {
           {/* Column 2: Soft + Skills */}
           <div className="flex flex-col gap-6">
             {/* Soft skills */}
-            <AnimatedCard
-              className="bg-purple-50 text-black dark:text-black dark:bg-purple-300 border-purple-200 dark:border-purple-300"
-              contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-              delay={0.2}
-            >
+            <div className="bg-purple-50 text-black dark:text-black dark:bg-purple-300 border border-purple-200 dark:border-purple-300 p-4 rounded-lg">
               <h3 className="text-xl font-normal mb-3">{softSkillsData.title}</h3> {/* Color inherited */}
               <div className="flex flex-wrap gap-2">
                 {softSkills.map((skill, index) => (
-                  <AnimatedBadge 
-                    key={skill} 
-                    delay={0.2 + (index * 0.05)} 
-                    className="uppercase border-transparent bg-purple-100 text-purple-900 dark:bg-gray-950 dark:text-gray-100"
-                    variant="secondary"
-                  >
+                  <CustomBadge key={skill} className="uppercase border-transparent bg-purple-100 text-purple-900 dark:bg-gray-950 dark:text-gray-100">
                     {skill}
-                  </AnimatedBadge>
+                  </CustomBadge>
                 ))}
               </div>
-            </AnimatedCard>
+            </div>
 
             {/* Programming skills */}
-            <AnimatedCard
-              className="bg-gray-100 text-black dark:text-white dark:bg-gray-900"
-              contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-              delay={0.3}
-            >
+            <div className="bg-gray-100 text-black dark:text-white dark:bg-gray-900 p-4 rounded-lg">
               <h3 className="text-xl font-normal mb-3">{skillsData.title}</h3> {/* Color inherited */}
               <ul className="space-y-2">
                 {skills.map(({ label, level }) => (
@@ -283,7 +252,7 @@ export default function Cv() {
                   </li>
                 ))}
               </ul>
-            </AnimatedCard>
+            </div>
           </div>
         </div>
       </section>
@@ -297,11 +266,7 @@ export default function Cv() {
             <h3 className="text-xl font-normal text-white mb-4">{experienceData.title}</h3> {/* font-normal */}
             {experienceItems.map(({ role, company, period, desc, type }, index) => (
               <div key={`${role}-${company}`} className="mb-4 last:mb-0">
-                <AnimatedCard 
-                  className="bg-white border-gray-300 text-black"
-                  delay={0.1 + (index * 0.05)} // Added incremental delay
-                  contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-                >
+                <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">
                     {role}
                   </p>
@@ -311,7 +276,7 @@ export default function Cv() {
                    </p>
                   <p className="font-normal text-xs text-gray-700 mt-1"> {period}</p>
                   <p className="text-sm mt-1 text-gray-700">{desc}</p>
-                </AnimatedCard>
+                </div>
               </div>
             ))}
           </div>
@@ -319,11 +284,7 @@ export default function Cv() {
           {/* Languages */}
           <div>
             <h3 className="text-xl font-normal mb-4 text-gray-100">{languagesData.title}</h3> {/* font-normal */}
-            <AnimatedCard 
-              className="bg-gray-900 border-gray-700"
-              delay={0.15} // Added delay
-              contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-            >
+            <div className="bg-gray-900 border border-gray-700 p-4 rounded-lg">
               <ul className="space-y-3"> {/* Increased spacing */}
                 {languages.map(({ label, level }) => (
                   <li key={label} className="text-sm text-gray-300 flex flex-col items-start">
@@ -332,7 +293,7 @@ export default function Cv() {
                   </li>
                 ))}
               </ul>
-            </AnimatedCard>
+            </div>
           </div>
         </div>
 
@@ -343,11 +304,7 @@ export default function Cv() {
             <h3 className="text-xl font-normal mb-4">{projectsData.title}</h3> {/* font-normal */}
             {projects.map(({ title, stage, tags, link, desc }, index) => (
               <div key={title} className="mb-4 last:mb-0">
-                <AnimatedCard
-                  className="bg-white border-gray-300 text-black"
-                  delay={0.1 + (index * 0.1)}
-                  contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-                >
+                <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">
                     {title}
                     {stage && <span className="ml-2 text-xs text-gray-400">{stage}</span>}
@@ -355,7 +312,7 @@ export default function Cv() {
                   {tags && tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
                       {tags.map((t, tagIndex) => (
-                        <AnimatedBadge key={t} delay={0.1 + (index * 0.1) + (tagIndex * 0.03)} className="uppercase text-[10px]">{t}</AnimatedBadge>
+                        <CustomBadge key={t} className="uppercase text-[10px]">{t}</CustomBadge>
                       ))}
                     </div>
                   )}
@@ -371,7 +328,7 @@ export default function Cv() {
                     </a>
                   )}
                   <p className="text-sm text-gray-700 mt-2">{desc}</p>
-                </AnimatedCard>
+                </div>
               </div>
             ))}
           </div>
@@ -381,17 +338,13 @@ export default function Cv() {
             <h3 className="text-xl font-normal mb-4">{certificatesData.title}</h3> {/* font-normal */}
             {certificates.map(({ title, issuer, date }, index) => (
               <div key={title} className="mb-4 last:mb-0">
-                <AnimatedCard 
-                  className="bg-purple-100 border-purple-200 text-black"
-                  delay={0.1 + (index * 0.05)} // Added incremental delay
-                  contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-                >
+                <div className="bg-purple-100 border border-purple-200 text-black p-4 rounded-lg">
                   <p className="font-semibold">
                     {title}
                   </p>
                   <p className="text-xs text-gray-700"><AccentText>{issuer}</AccentText></p> {/* Highlighted issuer */}
                   <p className="text-xs mt-1 text-gray-700">{date}</p>
-                </AnimatedCard>
+                </div>
               </div>
             ))}
           </div>
@@ -406,15 +359,11 @@ export default function Cv() {
             <h3 className="text-xl font-normal text-white mb-4">{interestsData.title}</h3> {/* White text, font-normal */}
             {interests.map(({ title, subtitle, text }, index) => (
               <div key={title} className="mb-4 last:mb-0">
-                <AnimatedCard 
-                  className="bg-white border-gray-300 text-black"
-                  delay={0.1 + (index * 0.05)} // Added incremental delay
-                  contentClassName="pt-1 pl-3.5 pb-6 pr-6"
-                >
+                <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">{title}</p>
                   <p className="text-xs text-[#570EFF] mb-2">{subtitle}</p> {/* Accent color */}
                   <p className="text-sm leading-relaxed text-gray-700 whitespace-pre-line">{text}</p>
-                </AnimatedCard>
+                </div>
               </div>
             ))}
           </div>
@@ -423,25 +372,17 @@ export default function Cv() {
           <div>
              {/* Wrap the title/intro card in a div for margin control */}
              <div className="mb-4">
-               <AnimatedCard 
-                  className="bg-[#1E1E1E]"
-                  delay={0.1} // Added delay
-                  contentClassName="pt-1 pl-3.5 pb-3 pr-4"
-               >
+               <div className="bg-[#1E1E1E] p-4 rounded-lg">
                     <h3 className="text-xl font-normal text-white mb-2">{activitiesData.title}</h3> {/* White text, font-normal */}
                     {activitiesData.intro && <p className="text-sm text-gray-300">{activitiesData.intro}</p>}
-               </AnimatedCard>
+               </div>
              </div>
             {activities.map(({ title, text }, index) => (
               <div key={title} className="mb-4 last:mb-0">
-                <AnimatedCard 
-                  className="bg-white border-gray-300 text-black"
-                  delay={0.15 + (index * 0.05)} // Added incremental delay
-                  contentClassName="pt-1 pl-3.5 pb-6 pr-6"
-                >
+                <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold mb-2">{title}</p>
                   <p className="text-sm leading-relaxed text-gray-700 whitespace-pre-line">{text}</p>
-                </AnimatedCard>
+                </div>
               </div>
             ))}
           </div>
