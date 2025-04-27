@@ -2,8 +2,8 @@ import { Github } from 'lucide-react';
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-// import GlobeCard from '@/components/GlobeCard'; // Temporarily comment out GlobeCard import
-// import ContactBadges from '@/components/ContactBadges';
+import GlobeCard from '@/components/GlobeCard'; // Enable GlobeCard import
+import ContactBadges from '@/components/ContactBadges';
 import Image from 'next/image';
 
 // Define a basic type for the content data
@@ -180,8 +180,8 @@ export default function Cv() {
 
               {/* Bottom-Right Cell */}
               <div className="col-span-2 row-span-1 bg-purple-100 dark:bg-purple-300 rounded-lg overflow-hidden"> {/* Adjusted light bg */}
-                {/* <GlobeCard /> */} {/* Temporarily comment out GlobeCard usage */}
-                <div className="w-full h-full bg-gray-500 animate-pulse"></div> {/* Placeholder */}
+                <GlobeCard /> {/* Enable GlobeCard usage */}
+                {/* <div className="w-full h-full bg-gray-500 animate-pulse"></div> */} {/* Comment out placeholder */}
               </div>
 
             </div>
@@ -193,10 +193,8 @@ export default function Cv() {
         <h1 className="mt-8 text-5xl font-bold tracking-wide">GRACJAN ZIEMIAŃSKI</h1> {/* Placeholder */}
 
         {/* Contact badges - Use the client component */}
-        {/* <ContactBadges contact={contact} /> */}
-        {/* Use data directly if ContactBadges is commented out, or remove if _contact is also commented */}
-        {/* <div>Contact Info: {contact.email}</div> */}
-        <div>Contact Placeholder</div> {/* Placeholder */}
+        <ContactBadges contact={profile} />
+        {/* <div>Contact Placeholder</div> */} {/* Placeholder */}
 
         {/* Profile + Education + Soft skills + Programming skills */}
         <div className="grid grid-cols-2 gap-6 mt-8">
