@@ -5,6 +5,7 @@ import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 
 // Define specific types for Cobe state and instance
+/* Remove unused CobeState type
 type CobeState = {
   phi: number;
   theta: number;
@@ -12,11 +13,13 @@ type CobeState = {
   height?: number;
   [key: string]: any; // Allow other unknown properties if necessary
 };
+*/
 
 type CobeInstance = {
   destroy: () => void;
   resize: () => void;
   // Add other known methods if available
+  // Remove properties that belong to config
 };
 
 // Define a type for the cobe configuration
@@ -35,9 +38,10 @@ type CobeConfig = {
   dark: number;
   opacity: number;
   scale: number;
-  offset: [number, number];
-  devicePixelRatio: number; // Make devicePixelRatio non-optional
-  onRender: (state: Record<string, any>) => void; // Revert to Record<string, any> for compatibility
+  offset: [number, number]; // Correct location
+  devicePixelRatio: number; // Correct location
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRender: (state: Record<string, any>) => void; // Correct location
 };
 
 // NOTE: This is a simplified version for demonstration.
@@ -141,7 +145,8 @@ export function Globe({
       if (!currentCanvas || currentCanvas.offsetWidth === 0) return;
 
       // Define the render function separately
-      const renderFunction = (state: Record<string, any>) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const renderFunction = (state: Record<string, any>) => { // Revert to Record<string, any>
         // Call provided onRender first if it exists
         config?.onRender?.(state);
         // Default render logic
@@ -177,9 +182,8 @@ export function Globe({
         onRender: renderFunction,
       };
 
-      // Explicitly cast the result of createGlobe if necessary,
-      // though ideally the library provides its own types.
-      globeRef.current = createGlobe(currentCanvas, globeConfig) as CobeInstance;
+      // Assign the result directly. The return type of createGlobe should be assignable to CobeInstance.
+      globeRef.current = createGlobe(currentCanvas, globeConfig);
     }, 10);
 
     return () => {
