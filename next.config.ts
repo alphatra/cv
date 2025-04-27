@@ -1,15 +1,12 @@
 import type { NextConfig } from "next";
+// Removed unused path import
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  webpack: (config, { isServer }) => {
-    // Ensure .md files are treated as assets accessible via fs in server components
-    config.module.rules.push({
-      test: /\.md$/,
-      type: 'asset/source',
-    });
-    return config;
+  experimental: {
+    // Potentially help module resolution for packages using fs
+    serverComponentsExternalPackages: ['gray-matter'],
   },
+  // Removed webpack config as it didn't solve the fs issue
 };
 
 export default nextConfig;
