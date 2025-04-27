@@ -65,7 +65,7 @@ export default function Cv() {
   const certificatesData: ContentData = getContent("certificates.md");
   const interestsData: ContentData = getContent("interests.md");
   const activitiesData: ContentData = getContent("activities.md");
-  const contact: ContentData = getContent("contact.md");
+  // const contact: ContentData = getContent("contact.md"); // Comment out if contact is truly unused now
 
   // Extract typed data (add type safety as needed)
   const skills: { label: string; level: number }[] = skillsData.skills || [];
@@ -178,6 +178,9 @@ export default function Cv() {
         <h1 className="mt-8 text-5xl font-bold tracking-wide">GRACJAN ZIEMIAŃSKI</h1> {/* Placeholder */}
 
         {/* Contact badges - Use the client component */}
+        {/* <ContactBadges contact={contact} /> */}
+        {/* Use data directly if ContactBadges is commented out, or remove if _contact is also commented */}
+        {/* <div>Contact Info: {contact.email}</div> */}
         <div>Contact Placeholder</div> {/* Placeholder */}
 
         {/* Profile + Education + Soft skills + Programming skills */}
@@ -195,8 +198,8 @@ export default function Cv() {
             {/* Education */}
             <div>
               <h3 className="text-xl font-normal text-black dark:text-white mb-4">{educationData.title}</h3> {/* font-normal */}
-              {educationItems.map((item, index) => (
-                <div key={index} className="mb-4 last:mb-0">
+              {educationItems.map((item, _index) => (
+                <div key={_index} className="mb-4 last:mb-0">
                   <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                     <p className="text-lg font-semibold mb-1"> 
                       {item.degree}
@@ -229,7 +232,7 @@ export default function Cv() {
             <div className="bg-purple-50 text-black dark:text-black dark:bg-purple-300 border border-purple-200 dark:border-purple-300 p-4 rounded-lg">
               <h3 className="text-xl font-normal mb-3">{softSkillsData.title}</h3> {/* Color inherited */}
               <div className="flex flex-wrap gap-2">
-                {softSkills.map((skill, index) => (
+                {softSkills.map((skill, _index) => (
                   <CustomBadge key={skill} className="uppercase border-transparent bg-purple-100 text-purple-900 dark:bg-gray-950 dark:text-gray-100">
                     {skill}
                   </CustomBadge>
@@ -264,8 +267,8 @@ export default function Cv() {
           {/* Work experience */}
           <div className="col-span-2">
             <h3 className="text-xl font-normal text-white mb-4">{experienceData.title}</h3> {/* font-normal */}
-            {experienceItems.map(({ role, company, period, desc, type }, index) => (
-              <div key={`${role}-${company}`} className="mb-4 last:mb-0">
+            {experienceItems.map(({ role, company, period, desc, type }, _index) => (
+              <div key={`${role}-${company}-${_index}`} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">
                     {role}
@@ -302,7 +305,7 @@ export default function Cv() {
           {/* Projects */}
           <div>
             <h3 className="text-xl font-normal mb-4">{projectsData.title}</h3> {/* font-normal */}
-            {projects.map(({ title, stage, tags, link, desc }, index) => (
+            {projects.map(({ title, stage, tags, link, desc }, _index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">
@@ -311,7 +314,7 @@ export default function Cv() {
                   </p>
                   {tags && tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {tags.map((t, tagIndex) => (
+                      {tags.map((t, _tagIndex) => (
                         <CustomBadge key={t} className="uppercase text-[10px]">{t}</CustomBadge>
                       ))}
                     </div>
@@ -336,7 +339,7 @@ export default function Cv() {
           {/* Certificates */}
           <div>
             <h3 className="text-xl font-normal mb-4">{certificatesData.title}</h3> {/* font-normal */}
-            {certificates.map(({ title, issuer, date }, index) => (
+            {certificates.map(({ title, issuer, date }, _index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-purple-100 border border-purple-200 text-black p-4 rounded-lg">
                   <p className="font-semibold">
@@ -357,7 +360,7 @@ export default function Cv() {
           {/* Interests */}
           <div>
             <h3 className="text-xl font-normal text-white mb-4">{interestsData.title}</h3> {/* White text, font-normal */}
-            {interests.map(({ title, subtitle, text }, index) => (
+            {interests.map(({ title, subtitle, text }, _index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold">{title}</p>
@@ -377,7 +380,7 @@ export default function Cv() {
                     {activitiesData.intro && <p className="text-sm text-gray-300">{activitiesData.intro}</p>}
                </div>
              </div>
-            {activities.map(({ title, text }, index) => (
+            {activities.map(({ title, text }, _index) => (
               <div key={title} className="mb-4 last:mb-0">
                 <div className="bg-white border border-gray-300 text-black p-4 rounded-lg">
                   <p className="font-semibold mb-2">{title}</p>
