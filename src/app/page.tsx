@@ -46,11 +46,13 @@ const getContent = (filename: string): ContentData => {
   
   // Try to read from src/content first (works in dev)
   try {
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     filePath = path.join(process.cwd(), "src", "content", filename);
     fileContents = fs.readFileSync(filePath, "utf8");
   } catch (error) {
     // If that fails, try public/content (works in production)
     try {
+      /* eslint-disable @typescript-eslint/no-unused-vars */
       filePath = path.join(process.cwd(), "public", "content", filename);
       fileContents = fs.readFileSync(filePath, "utf8");
     } catch (secondError) {
