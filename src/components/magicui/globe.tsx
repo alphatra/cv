@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 
