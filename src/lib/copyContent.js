@@ -1,6 +1,6 @@
-// @ts-ignore
+// @ts-expect-error
 import fs from 'fs';
-// @ts-ignore
+// @ts-expect-error
 import path from 'path';
 
 // Define source and destination directories

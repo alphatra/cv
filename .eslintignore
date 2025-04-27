@@ -1,0 +1,9 @@
+# Ignore build output
+.next/
+out/
+
+# Ignore copyContent.js since it's just a build script
+src/lib/copyContent.js
+
+# Ignore node_modules
+node_modules/ 
