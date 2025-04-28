@@ -17,7 +17,7 @@ interface ContentData {
   job_title_line2?: string;
   tagline?: string;
   tagline_description?: string;
-  skills?: { label: string; level: number }[];
+  skills?: { label: string; level: number }[] | string[];
   softSkills?: string[]; // Assuming soft-skills.md just has a list
   education?: { degree: string; institution: string; level?: string; period: string; tags: string[] }[];
   experience?: { role: string; company: string; type?: string; period: string; desc: string }[];
@@ -80,11 +80,11 @@ export default function Cv() {
   const certificatesData: ContentData = getContent("certificates.md");
   const interestsData: ContentData = getContent("interests.md");
   const activitiesData: ContentData = getContent("activities.md");
-  // const contact: ContentData = getContent("contact.md"); // Comment out if contact is truly unused now
+  const contact: ContentData = getContent("contact.md"); // Uncomment to use contact data
 
   // Extract typed data (add type safety as needed)
-  const skills: { label: string; level: number }[] = skillsData.skills || [];
-  const softSkills: string[] = softSkillsData.softSkills || [];
+  const skills: { label: string; level: number }[] = skillsData.skills as { label: string; level: number }[] || [];
+  const softSkills: string[] = softSkillsData.skills as string[] || [];
   const languages: { label: string; level: string }[] = languagesData.languages || [];
   const projects: { title: string; stage?: string; tags: string[]; link?: string; desc: string }[] = projectsData.projects || [];
   const certificates: { title: string; issuer: string; date: string }[] = certificatesData.certificates || [];
@@ -175,7 +175,16 @@ export default function Cv() {
 
               {/* Bottom-Left Cell */}
               <div className="col-span-3 row-span-1 bg-purple-100 text-black dark:bg-purple-300 dark:text-purple-800 border-2 border-purple-100 dark:border-purple-300 rounded-lg flex items-center justify-center"> {/* Adjusted light bg/text/border */}
-                <div className="w-full h-full bg-gray-500 animate-pulse"></div> {/* Placeholder */}
+                {/* QR code linking to GitHub */}
+                <a href={contact.github_link || 'https://github.com/alphatra'} target="_blank" rel="noopener noreferrer">
+                  <Image 
+                    src="/qr.png" 
+                    alt="GitHub QR Code" 
+                    width={100} 
+                    height={100}
+                    className="w-full h-full rounded-md"
+                  />
+                </a>
               </div>
 
               {/* Bottom-Right Cell */}
@@ -190,10 +199,10 @@ export default function Cv() {
         </div>
 
         {/* Name */}
-        <h1 className="mt-8 text-5xl font-bold tracking-wide">GRACJAN ZIEMIAŃSKI</h1> {/* Placeholder */}
+        <h1 className="mt-8 text-5xl font-bold tracking-wide">{profile.name || "GRACJAN ZIEMIAŃSKI"}</h1>
 
         {/* Contact badges - Use the client component */}
-        <ContactBadges contact={profile} />
+        <ContactBadges contact={contact} />
         {/* <div>Contact Placeholder</div> */} {/* Placeholder */}
 
         {/* Profile + Education + Soft skills + Programming skills */}
