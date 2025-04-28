@@ -1,0 +1,41 @@
+{
+  "profile": {
+    "title": "PROFIL",
+    "job_title_line1": "Full Stack",
+    "job_title_line2": "Entwickler",
+    "tagline": "KREATIV & EHRGEIZIG",
+    "tagline_description": "Herausforderungen motivieren mich, ehrgeizige Ziele zu erreichen."
+  },
+  "skills": {
+    "title": "PROGRAMMIERKENNTNISSE"
+  },
+  "softSkills": {
+    "title": "SOFT SKILLS"
+  },
+  "education": {
+    "title": "BILDUNG"
+  },
+  "experience": {
+    "title": "ERFAHRUNG"
+  },
+  "languages": {
+    "title": "SPRACHEN"
+  },
+  "projects": {
+    "title": "PROJEKTE",
+    "projects_label": "MEINE PROJEKTE",
+    "github_label": "GITHUB"
+  },
+  "certificates": {
+    "title": "ZERTIFIKATE"
+  },
+  "interests": {
+    "title": "INTERESSEN"
+  },
+  "activities": {
+    "title": "AKTIVITÄTEN"
+  },
+  "contact": {
+    "portfolio_label": "Portfolio"
+  }
+} 

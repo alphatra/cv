@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { DownloadPdfButton } from "@/components/DownloadPdfButton";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
         >
           {children}
           <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+            <LanguageSwitcher />
             <DownloadPdfButton />
             <ThemeSwitcher />
           </div>

@@ -26,4 +26,26 @@ skills:
     level: 4
   - label: 'GIT'
     level: 4
+  - label: 'VS Code'
+    level: 5
+  - label: 'JetBrains IDE'
+    level: 4
+  - label: 'Android Studio'
+    level: 4
+  - label: 'PyCharm'
+    level: 4
+  - label: 'IntelliJ'
+    level: 4
+  - label: 'WebStorm'
+    level: 4
+  - label: 'Xcode'
+    level: 3
+  - label: 'Docker'
+    level: 4
+  - label: 'Webpack'
+    level: 3
+  - label: 'npm/yarn'
+    level: 4
+  - label: 'Vercel'
+    level: 4
 --- 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Globe } from 'lucide-react';
 
 // Define the expected type for the contact prop
 interface ContactData {
@@ -12,6 +12,8 @@ interface ContactData {
   linkedin?: string;
   github_user?: string;
   github_link?: string; // Keep for QR code potentially later
+  portfolio?: string;
+  portfolio_label?: string;
 }
 
 interface ContactBadgesProps {
@@ -114,6 +116,25 @@ const ContactBadges: React.FC<ContactBadgesProps> = ({ contact }) => {
               <Github className="w-3 h-3 text-white" />
             </span>
             <span className="text-xs font-medium underline">{contact.github_user}</span>
+          </div>
+        </motion.a>
+      )}
+
+      {contact.portfolio && (
+        <motion.a
+          href={contact.portfolio}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="cursor-pointer"
+        >
+          <div className="inline-flex items-center bg-white text-black dark:bg-white border border-black dark:border-black rounded-full px-3 py-1 shadow hover:bg-gray-200 dark:hover:bg-gray-100 transition-colors">
+            <span className="bg-black dark:bg-black rounded-full p-1 mr-2">
+              <Globe className="w-3 h-3 text-white" />
+            </span>
+            <span className="text-xs font-medium underline">{contact.portfolio_label || 'Portfolio'}</span>
           </div>
         </motion.a>
       )}

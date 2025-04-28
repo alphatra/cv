@@ -1,0 +1,41 @@
+{
+  "profile": {
+    "title": "PROFILO",
+    "job_title_line1": "Full Stack",
+    "job_title_line2": "Developer",
+    "tagline": "CREATIVO & AMBIZIOSO",
+    "tagline_description": "Le sfide mi spingono a raggiungere obiettivi ambiziosi."
+  },
+  "skills": {
+    "title": "COMPETENZE DI PROGRAMMAZIONE"
+  },
+  "softSkills": {
+    "title": "COMPETENZE TRASVERSALI"
+  },
+  "education": {
+    "title": "ISTRUZIONE"
+  },
+  "experience": {
+    "title": "ESPERIENZA"
+  },
+  "languages": {
+    "title": "LINGUE"
+  },
+  "projects": {
+    "title": "PROGETTI",
+    "projects_label": "I MIEI PROGETTI",
+    "github_label": "GITHUB"
+  },
+  "certificates": {
+    "title": "CERTIFICATI"
+  },
+  "interests": {
+    "title": "INTERESSI"
+  },
+  "activities": {
+    "title": "ATTIVITÀ"
+  },
+  "contact": {
+    "portfolio_label": "Portfolio"
+  }
+} 
